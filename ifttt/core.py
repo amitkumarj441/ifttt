@@ -112,3 +112,12 @@ for view_class in ALL_TRIGGERS:
         slug = snake_case(view_class.__name__)
     app.add_url_rule('/v1/triggers/%s' % slug,
                      view_func=view_class.as_view(slug))
+
+# regular web route
+@app.route('/v1/feeds')
+def feeds():
+    feeds = [f for f in currentapp if f.trigger(ALL_TRIGGERS)]
+    trigger_name = snake_case(trigger.__name__)
+     if trigger.default_fields:
+          feeds['f']['triggers'][trigger_name] = trigger.default_fields
+  return flask.jsonify(data=feeds)
