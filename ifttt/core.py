@@ -118,6 +118,6 @@ for view_class in ALL_TRIGGERS:
 def feeds():
     feeds = [f for f in currentapp if f.trigger(ALL_TRIGGERS)]
     trigger_name = snake_case(trigger.__name__)
-     if trigger.default_fields:
+     if feeds.trigger.default_fields:
           feeds['f']['triggers'][trigger_name] = trigger.default_fields
-  return flask.jsonify(data=feeds)
+  return render_template('feeds.html' , feeds=feeds)
