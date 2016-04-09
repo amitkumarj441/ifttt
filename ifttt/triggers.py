@@ -169,6 +169,23 @@ class BaseTriggerView(flask.views.MethodView):
         data = data[:self.limit]
         return flask.jsonify(data=data)
 
+    def get(self):
+	      headers={}
+	      self_request=[]
+	      if self.request.GET['field']=='':
+	      self.response.headers['field']='default_value'
+	      self.response.out.write(self.request.GET['trigger_values'])
+	      return 
+	      if self.request.GET['field']!='self_request':
+	      self.error(400)
+	      return
+	      trigger_values=ALL_TRIGGERS.get_by_key_name(self.request.GET['field.items'])
+	      if not trigger_values or trigger_values.verify_token!=self.request.GET['field.verify_token']
+	      self.error(400)
+	      return 
+		    self.response.headers['field']='default_value'
+	      self.response.out.write(self.request.GET['trigger_values'])
+	      return self.rss()
 
 class BaseFeaturedFeedTriggerView(BaseTriggerView):
     """Generic view for IFTT Triggers based on FeaturedFeeds."""
