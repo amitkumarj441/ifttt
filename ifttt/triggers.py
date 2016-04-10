@@ -168,7 +168,27 @@ class BaseTriggerView(flask.views.MethodView):
         data = self.get_data()
         data = data[:self.limit]
         return flask.jsonify(data=data)
-
+    def __init__(self, field, item):
+        self.field = field
+        self.item = item
+    
+    RSS_TEMPLATE = FeedTemplate("""\
+    <?xml version="1.0" encoding="utf-8"?>
+    <rss version="2.0">
+      <channel>
+      <title>%(title)s</title>
+      <link>%(link)s</link>
+      <description><![CDATA[%(desc)s]]></description>
+    %(items)s
+      </channel>
+    </rss>""",
+    """\
+      <item>
+        <title>%(title)s</title>
+        <link>%(link)s</link>
+        <description><![CDATA[%(desc)s]]></description>
+      </item>"""
+)
 
 class BaseFeaturedFeedTriggerView(BaseTriggerView):
     """Generic view for IFTT Triggers based on FeaturedFeeds."""
