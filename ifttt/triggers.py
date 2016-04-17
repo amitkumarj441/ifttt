@@ -164,7 +164,7 @@ class BaseTriggerView(flask.views.MethodView):
             if self.fields[field] == '' and default_value not in TEST_FIELDS:  
         data = self.get_data()
         data = data[:self.limit]
-        feeds = render_template('article_of_the_day_feeds.xml', data=data)
+        feeds = render_template('article_of_the_day.xml', data=data)
         feeds = render_template('feed_name.xml', data=data)
         response = make_response(feeds)
         response.headers["Content-Type"] = "application/xml"
